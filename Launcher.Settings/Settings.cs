@@ -1,8 +1,6 @@
-﻿using System.IO;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using iAmModlist_Launcher.Launcher.Json;
 using Serilog;
-using Serilog.Core;
 
 namespace iAmModlist_Launcher.Launcher.Settings
 {

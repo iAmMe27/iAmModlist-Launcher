@@ -11,8 +11,7 @@ public static class LauncherLogger
         {
             Directory.CreateDirectory("logs");
         }
-        
-        var rotator = new LogRotator();
+
         LogRotator.RotateLogs();
         
         var logger = new LoggerConfiguration()
@@ -22,10 +21,11 @@ public static class LauncherLogger
             .CreateLogger();
 
         Log.Logger = logger;
+        Log.Information("### iAmModlist Launcher ###");
     }
 }
 
-public class LogRotator
+public static class LogRotator
 {
     private const string LogDirectory = "logs";
     private const string CurrLogName = "launcher.current.log";
@@ -42,7 +42,7 @@ public class LogRotator
             .ToList();
         
         // Delete oldest log file
-        if (logFiles.Count >= MaxLogFiles)
+        if (logFiles.Count >= (MaxLogFiles - 1))
         {
             var filesToDelete = logFiles.Take(logFiles.Count - (MaxLogFiles - 1));
 

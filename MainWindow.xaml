@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="iAmModlist Launcher" Height="450" Width="800"
         xmlns:ui="http://schemas.modernwpf.com/2019"
-        ui:WindowHelper.UseModernWindowStyle="True">
+        ui:WindowHelper.UseModernWindowStyle="True"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <ui:SimpleStackPanel Margin="12" Spacing="24">
-            <TextBlock Text="iAmModlist Launcher" Style="{StaticResource HeaderTextBlockStyle}" />
+            <TextBlock Text="{Binding ModlistName}" Style="{StaticResource HeaderTextBlockStyle}"/>
             <Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" />
             <Button Content="I am a button" Margin="77,32,0,0" VerticalAlignment="Top" />
         </ui:SimpleStackPanel>
