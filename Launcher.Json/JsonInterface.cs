@@ -6,10 +6,10 @@ namespace iAmModlist_Launcher.Launcher.Json;
 
 public static class JsonInterface
 {
-    public static async Task<string?> Read(string filename)
+    public static async Task<LauncherSettings?> Read(string filename)
     {
         await using FileStream openStream = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-        return await JsonSerializer.DeserializeAsync<string>(openStream);
+        return await JsonSerializer.DeserializeAsync<LauncherSettings>(openStream);
     }
 
     public static async void Write(string filename, LauncherSettings settings)

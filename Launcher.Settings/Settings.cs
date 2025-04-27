@@ -7,16 +7,17 @@ using Serilog.Core;
 namespace iAmModlist_Launcher.Launcher.Settings
 {
     internal static class Settings
-    {   
-        private static readonly string SettingsFileName = "settings.json";
-        public static LauncherSettings LoadSettings()
+    {
+        private const string SettingsFileName = "settings.json";
+
+        public static LauncherSettings? LoadSettings()
         {
             LauncherSettings? settings = new();
 
             try
             {
                 Log.Information("Loading settings");
-                var data = JsonInterface.Read(SettingsFileName).Result;
+                settings = JsonInterface.Read(SettingsFileName).Result;
             }
             catch (Exception e)
             {
