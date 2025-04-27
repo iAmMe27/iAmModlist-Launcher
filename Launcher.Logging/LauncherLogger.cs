@@ -30,7 +30,7 @@ public static class LogRotator
     private const string LogDirectory = "logs";
     private const string CurrLogName = "launcher.current.log";
     private const string RotatingLogPattern = "launcher.{0:D2}.log";
-    private const int MaxLogFiles = 5;
+    private const int MaxLogFiles = 4;
 
     public static void RotateLogs()
     {
@@ -39,10 +39,11 @@ public static class LogRotator
             .Where(f => Path.GetFileName(f) != CurrLogName)
             .Select(f => new FileInfo(f))
             .OrderBy(f => f.Name)
+            .Reverse()
             .ToList();
-        
+
         // Delete oldest log file
-        if (logFiles.Count >= (MaxLogFiles - 1))
+        if (logFiles.Count >= MaxLogFiles)
         {
             var filesToDelete = logFiles.Take(logFiles.Count - (MaxLogFiles - 1));
 
@@ -51,28 +52,28 @@ public static class LogRotator
                 Log.Information("Deleting old log {FileName}", file.Name);
                 file.Delete();
             }
-            
+
             // Refresh list of log files after deletion
-            logFiles = Directory.GetFiles(LogDirectory, "launcher.*.log")
+            logFiles = [.. Directory.GetFiles(LogDirectory, "launcher.*.log")
                 .Where(f => Path.GetFileName(f) != CurrLogName)
                 .Select(f => new FileInfo(f))
                 .OrderBy(f => f.Name)
-                .ToList();
+                .Reverse()];
         }
-        
+
         // Shift existing logs up
         for (var i = logFiles.Count; i >= 1; i--)
         {
             var src = Path.Combine(LogDirectory, string.Format(RotatingLogPattern, i));
             var dst = Path.Combine(LogDirectory, string.Format(RotatingLogPattern, i + 1));
-            
+
             if (File.Exists(src))
             {
                 Log.Information("Renaming {Src} -> {Dst}", src, dst);
                 File.Move(src, dst);
             }
         }
-        
+
         var currentLogPath = Path.Combine(LogDirectory, CurrLogName);
         if (File.Exists(currentLogPath))
         {

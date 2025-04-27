@@ -21,7 +21,6 @@ namespace iAmModlist_Launcher.Launcher.Settings
             {
                 Log.Error("Settings file not found, generating new");
                 CreateNewSettings();
-                
             }
             
             return settings;
@@ -38,6 +37,7 @@ namespace iAmModlist_Launcher.Launcher.Settings
             {
                 ModListName = "Modlist Name",
                 ModListVersion = "0.0.1.0",
+                ModListAuthor = "Chris P Bacon",
                 ModListPath = "Modlist\\Path"
             };
 
@@ -52,6 +52,9 @@ namespace iAmModlist_Launcher.Launcher.Settings
         
         [JsonPropertyName("ModlistVersion")]
         public string ModListVersion { get; set; } = string.Empty;
+        
+        [JsonPropertyName("ModlistAuthor")]
+        public string ModListAuthor { get; set; } = string.Empty;
         
         // TODO: make this a file path type instead of a string
         [JsonPropertyName("ModlistPath")]
