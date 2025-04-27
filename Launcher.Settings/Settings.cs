@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using iAmModlist_Launcher.Launcher.Json;
 using Serilog;
 
 namespace iAmModlist_Launcher.Launcher.Settings
 {
-    internal static class Settings
+    internal class Settings
     {
         private const string SettingsFileName = "settings.json";
 

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using iAmModlist_Launcher.Launcher.Customisation;
 using iAmModlist_Launcher.Launcher.Logging;
 
 namespace iAmModlist_Launcher

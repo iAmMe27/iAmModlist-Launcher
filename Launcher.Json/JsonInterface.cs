@@ -1,6 +1,5 @@
 using System.IO;
 using System.Text.Json;
-using iAmModlist_Launcher.Launcher.Settings;
 
 namespace iAmModlist_Launcher.Launcher.Json;
 

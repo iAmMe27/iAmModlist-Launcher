@@ -11,9 +11,11 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <ui:SimpleStackPanel Margin="12" Spacing="24">
-            <TextBlock Text="{Binding ModlistName}" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" />
-            <Button Content="I am a button" Margin="77,32,0,0" VerticalAlignment="Top" />
+            <TextBlock Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <TextBlock Text="{Binding ModlistVersion, FallbackValue=Placeholder}" Margin="0, -20, 700, 0"/>
+            <TextBlock Text="{Binding ModlistAuthor, FallbackValue=Placeholder}" Margin="150, -45, 0, 30"/>
+            <Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" Margin="10,83,0,0" VerticalAlignment="Top" />
+            <Button Content="I am a button" Margin="10,-7,0,0" VerticalAlignment="Top" Width="153" />
         </ui:SimpleStackPanel>
     </Grid>
 </Window>
