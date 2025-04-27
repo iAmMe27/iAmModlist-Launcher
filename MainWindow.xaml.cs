@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using iAmModlist_Launcher.Launcher.Settings;
+using iAmModlist_Launcher.Launcher.Customisation;
 
 namespace iAmModlist_Launcher
 {
@@ -18,19 +19,40 @@ namespace iAmModlist_Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string? ModlistName { get; }
-        public string? ModlistVersion { get; }
-        public string? ModlistPath { get; }
+        // Function settings
+        public string? ModlistName { get; set; }
+        public string? ModlistVersion { get; set; }
+        public string? ModlistAuthor { get; set; }
+        public string? ModlistPath { get; set; }
+
+        // Customisation settings
+        public string? Theme { get; set; }
+        public string? AccentColour { get; set; }
+        public string? BackgroundImage { get; set; }
 
         public MainWindow()
         {
-            var settings = Settings.LoadSettings();
+            // Initialise settings
+            _ = SettingsInitialiser();
 
-            ModlistName = settings?.ModListName + " Launcher";
-            ModlistVersion = settings?.ModListVersion;
-            ModlistPath = settings?.ModListPath;
-            
             InitializeComponent();
+        }
+
+        public async Task SettingsInitialiser()
+        {
+            var settings = await Settings.LoadSettings();
+            
+            ModlistName = settings?.ModListName + " Launcher";
+            ModlistVersion = "v" + settings?.ModListVersion;
+            ModlistAuthor = "By " + settings?.ModListAuthor;
+            ModlistPath = settings?.ModListPath;
+
+            var customisationSettings = await Customisation.LoadCustomisationSettings(); 
+            
+            Theme = customisationSettings?.Theme;
+            AccentColour = customisationSettings?.AccentColour;
+            BackgroundImage = customisationSettings?.BackgroundImage;
         }
     }
 }
+

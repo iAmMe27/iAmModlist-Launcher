@@ -8,19 +8,19 @@ namespace iAmModlist_Launcher.Launcher.Settings
     {
         private const string SettingsFileName = "settings.json";
 
-        public static LauncherSettings? LoadSettings()
+        public static async Task<LauncherSettings?> LoadSettings()
         {
             LauncherSettings? settings = new();
 
             try
             {
                 Log.Information("Loading settings");
-                settings = JsonInterface.Read<LauncherSettings>(SettingsFileName).Result;
+                settings = await JsonInterface.Read<LauncherSettings>(SettingsFileName);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Log.Error("Settings file not found, generating new");
-                _ = CreateNewSettings();
+                settings = await CreateNewSettings();
             }
             
             return settings;
@@ -31,7 +31,7 @@ namespace iAmModlist_Launcher.Launcher.Settings
             await JsonInterface.Write(SettingsFileName, settings);
         }
         
-        private static async Task CreateNewSettings()
+        private static async Task<LauncherSettings> CreateNewSettings()
         {
             LauncherSettings settings = new()
             {
@@ -42,6 +42,7 @@ namespace iAmModlist_Launcher.Launcher.Settings
             };
 
             await SaveSettings(settings);
+            return settings;
         }
     }
 
