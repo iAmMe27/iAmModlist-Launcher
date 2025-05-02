@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 
 namespace iAmModlist_Launcher.Launcher.UI
 {
-    class ContrastColourConverter
+    static class ContrastColourConverter
     {
         public static Color GetAverageColour(UIElement element, Rect region)
         {
@@ -25,9 +25,9 @@ namespace iAmModlist_Launcher.Launcher.UI
             rtb.CopyPixels(pixels, (int)region.Width * 4, 0);
 
             long r = 0, g = 0, b = 0;
-            int pixelCount = (int)(region.Width * region.Height);
+            var pixelCount = (int)(region.Width * region.Height);
 
-            for (int i = 0; i < pixels.Length; i += 4)
+            for (var i = 0; i < pixels.Length; i += 4)
             {
                 b += pixels[i];
                 g += pixels[i + 1];
@@ -39,7 +39,7 @@ namespace iAmModlist_Launcher.Launcher.UI
 
         public static Brush GetContrastingTextBrush(Color backgroundColor)
         {
-            double brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
+            var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
             return brightness > 128 ? Brushes.Black : Brushes.White;
         }
     }

@@ -1,5 +1,4 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using iAmModlist_Launcher.Launcher.Settings;
 using iAmModlist_Launcher.Launcher.Customisation;
@@ -15,7 +14,7 @@ namespace iAmModlist_Launcher
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : INotifyPropertyChanged
     {
         // iAmMe: this might look messy but the combo of public and private strings allows the XAML binding to be bound to data that can be setup before InitializeComponent() is called and updated on change
 
@@ -131,9 +130,13 @@ namespace iAmModlist_Launcher
             Theme = customisationSettings?.Theme;
             AccentColour = customisationSettings?.AccentColour;
             BackgroundImage = customisationSettings?.BackgroundImage;
-             
-            var pathForVanityImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, BackgroundImage);
-            VanityImage.Source = new BitmapImage(new Uri(pathForVanityImage, UriKind.Absolute));
+
+            if (BackgroundImage != null)
+            {
+                var pathForVanityImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, BackgroundImage);
+                VanityImage.Source = new BitmapImage(new Uri(pathForVanityImage, UriKind.Absolute));
+            }
+
             VanityImage.Width = 900;
             VanityImage.Height = 450;
 
@@ -158,10 +161,15 @@ namespace iAmModlist_Launcher
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChange(string name) =>
+        private void OnPropertyChange(string name) =>
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        private void ModlistName_Loaded(object sender, RoutedEventArgs e)
+        private void ModlistNameText_Loaded(object sender, RoutedEventArgs e)
+        {
+            Foreground = UpdateTextColour(sender);
+        }
+
+        private Brush UpdateTextColour(object sender)
         {
             if (sender is TextBlock tb && VanityImage != null)
             {
@@ -170,8 +178,10 @@ namespace iAmModlist_Launcher
                 var rect = new Rect(location, new Size(tb.ActualWidth, tb.ActualHeight));
 
                 var color = ContrastColourConverter.GetAverageColour(VanityImage, rect);
-                tb.Foreground = ContrastColourConverter.GetContrastingTextBrush(color);
+                return ContrastColourConverter.GetContrastingTextBrush(color);
             }
+
+            return Brushes.Black;
         }
     }
 }
