@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
+using System.Security.AccessControl;
 
 namespace iAmModlist_Launcher
 {
@@ -147,6 +148,13 @@ namespace iAmModlist_Launcher
                 _ => ApplicationTheme.Light
             };
 
+            Background = Theme switch
+            {
+                "Light" => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)),
+                "Dark" => new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00)),
+                _ => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
+            };
+
             ThemeManager.Current.AccentColor = AccentColour switch
             {
                 "Purple" => Color.FromArgb(0xFF, 0x8A, 0x2B, 0xE2),
@@ -182,6 +190,12 @@ namespace iAmModlist_Launcher
             }
 
             return Brushes.Black;
+        }
+
+        private void BtnAuthorSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var authorWindow = new AuthorWindow(Theme ?? "Dark", AccentColour ?? "Purple");
+            authorWindow.Show();
         }
     }
 }

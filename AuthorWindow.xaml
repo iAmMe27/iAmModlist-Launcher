@@ -1,4 +1,4 @@
-﻿<Window x:Class="iAmModlist_Launcher.MainWindow"
+﻿<Window x:Class="iAmModlist_Launcher.AuthorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,11 +11,8 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Background="#FF958D8D">
     <Grid>
-        <Image Name="VanityImage" Source="{Binding BackgroundImage}" />
         <ui:SimpleStackPanel Margin="12" Spacing="24">
-            <TextBlock Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HeaderTextBlockStyle}" Loaded="ModlistNameText_Loaded"/>
-            <TextBlock Text="{Binding ModlistVersion, FallbackValue=Placeholder,  UpdateSourceTrigger=PropertyChanged}" Margin="0, -20, 700, 0" />
-            <TextBlock Text="{Binding ModlistAuthor, FallbackValue=Placeholder,  UpdateSourceTrigger=PropertyChanged}" Margin="150, -45, 0, 30" />
+            <TextBlock Text="Author Settings" Style="{StaticResource HeaderTextBlockStyle}"/>
             <Button Style="{StaticResource AccentButtonStyle}" Margin="58,28,0,0" VerticalAlignment="Top" Width="100">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Play" VerticalAlignment="Center"/>
@@ -47,17 +44,6 @@
                         Height="16" 
                         VerticalAlignment="Center"
                         Margin="8,0,0,0"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnAuthorSettings" VerticalAlignment="Bottom" Margin="0,0,30,-77" HorizontalAlignment="Right" Width="153" Click="BtnAuthorSettings_Click">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="Author Settings" VerticalAlignment="Center"/>
-                    <iconPacks:PackIconFontAwesome
-                    Kind="UserGearSolid"
-                    Width="16" 
-                    Height="16" 
-                    VerticalAlignment="Center"
-                    Margin="8,0,0,0"/>
                 </StackPanel>
             </Button>
         </ui:SimpleStackPanel>
