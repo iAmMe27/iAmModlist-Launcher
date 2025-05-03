@@ -3,12 +3,13 @@ using System.Windows.Media;
 using iAmModlist_Launcher.Launcher.Settings;
 using iAmModlist_Launcher.Launcher.Customisation;
 using iAmModlist_Launcher.Launcher.UI;
+using static iAmModlist_Launcher.Launcher.UI.ThemeHelper;
 using ModernWpf;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
-using System.Security.AccessControl;
+
 
 namespace iAmModlist_Launcher
 {
@@ -66,22 +67,22 @@ namespace iAmModlist_Launcher
         private string _modlistPath = string.Empty;
 
         // Visual settings
-        public string? Theme
+        public AppTheme? LauncherTheme
         {
-            get => _theme;
+            get => _launcherTheme;
             set
             {
-                _theme = value ?? string.Empty;
-                OnPropertyChange(nameof(Theme));
+                _launcherTheme = value ?? AppTheme.Dark;
+                OnPropertyChange(nameof(LauncherTheme));
             }
         }
 
-        public string? AccentColour
+        public AccentColour? AccentColour
         {
             get => _accentColour;
             set
             {
-                _accentColour = value ?? string.Empty;
+                _accentColour = value ?? ThemeHelper.AccentColour.Purple;
                 OnPropertyChange(nameof(AccentColour));
             }
         }
@@ -96,8 +97,8 @@ namespace iAmModlist_Launcher
             }
         }
 
-        private string _theme = string.Empty;
-        private string _accentColour = string.Empty;
+        private AppTheme _launcherTheme = AppTheme.Dark;
+        private AccentColour _accentColour = ThemeHelper.AccentColour.Purple;
         private string _backgroundImage = string.Empty;
 
         public MainWindow()
@@ -110,11 +111,8 @@ namespace iAmModlist_Launcher
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double newHeight = e.NewSize.Height;
-            double newWidth = e.NewSize.Width;
-
-            VanityImage.Width = newWidth;
-            VanityImage.Height = newHeight;
+            VanityImage.Width = e.NewSize.Width;
+            VanityImage.Height = e.NewSize.Height;
         }
 
         private async Task SettingsInitializer()
@@ -128,8 +126,27 @@ namespace iAmModlist_Launcher
 
             var customisationSettings = await Customisation.LoadCustomisationSettings(); 
             
-            Theme = customisationSettings?.Theme;
-            AccentColour = customisationSettings?.AccentColour;
+            //Theme = customisationSettings?.Theme;
+            //AccentColour = customisationSettings?.AccentColour;
+
+            if (Enum.TryParse(customisationSettings?.Theme, out AppTheme theme))
+            {
+                _launcherTheme = theme;
+            }
+            else
+            {
+                theme = AppTheme.Light;
+            }
+
+            if (Enum.TryParse(customisationSettings?.AccentColour, out AccentColour accentColour))
+            {
+                _accentColour = accentColour;
+            }
+            else
+            {
+                accentColour = ThemeHelper.AccentColour.Purple;
+            }
+
             BackgroundImage = customisationSettings?.BackgroundImage;
 
             if (BackgroundImage != null)
@@ -141,21 +158,23 @@ namespace iAmModlist_Launcher
             VanityImage.Width = 900;
             VanityImage.Height = 450;
 
-            ThemeManager.Current.ApplicationTheme = Theme switch
+            /*ThemeManager.Current.ApplicationTheme = Theme switch
             {
-                "Light" => ApplicationTheme.Light,
-                "Dark" => ApplicationTheme.Dark,
+                AppTheme.Light => ApplicationTheme.Light,
+                AppTheme.Dark => ApplicationTheme.Dark,
                 _ => ApplicationTheme.Light
-            };
+            };*/
 
-            Background = Theme switch
+            SetTheme(theme, accentColour);
+
+            Background = theme switch
             {
-                "Light" => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)),
-                "Dark" => new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00)),
+                AppTheme.Light => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)),
+                AppTheme.Dark => new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00)),
                 _ => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
             };
 
-            ThemeManager.Current.AccentColor = AccentColour switch
+            /*ThemeManager.Current.AccentColor = AccentColour switch
             {
                 "Purple" => Color.FromArgb(0xFF, 0x8A, 0x2B, 0xE2),
                 "Blue" => Color.FromArgb(0xFF, 0x00, 0x00, 0xFF),
@@ -164,7 +183,7 @@ namespace iAmModlist_Launcher
                 "Yellow" => Color.FromArgb(0xFF, 0xFF, 0xFF, 0x00),
                 "Orange" => Color.FromArgb(0xFF, 0xFF, 0xA5, 0x00),
                 _ => Color.FromArgb(0xFF, 0x8A, 0x2B, 0xE2)
-            };
+            };*/
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -174,7 +193,7 @@ namespace iAmModlist_Launcher
 
         private void ModlistNameText_Loaded(object sender, RoutedEventArgs e)
         {
-            Foreground = UpdateTextColour(sender);
+           Foreground = UpdateTextColour(sender);
         }
 
         private Brush UpdateTextColour(object sender)
@@ -194,7 +213,7 @@ namespace iAmModlist_Launcher
 
         private void BtnAuthorSettings_Click(object sender, RoutedEventArgs e)
         {
-            var authorWindow = new AuthorWindow(Theme ?? "Dark", AccentColour ?? "Purple");
+            var authorWindow = new AuthorWindow(_launcherTheme, _accentColour);
             authorWindow.Show();
         }
     }

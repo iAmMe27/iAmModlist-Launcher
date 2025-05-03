@@ -13,7 +13,7 @@
     <Grid>
         <Image Name="VanityImage" Source="{Binding BackgroundImage}" />
         <ui:SimpleStackPanel Margin="12" Spacing="24">
-            <TextBlock Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HeaderTextBlockStyle}" Loaded="ModlistNameText_Loaded"/>
+            <TextBlock Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HeaderTextBlockStyle}" Loaded="ModlistNameText_Loaded" Name="ModListNameText"/>
             <TextBlock Text="{Binding ModlistVersion, FallbackValue=Placeholder,  UpdateSourceTrigger=PropertyChanged}" Margin="0, -20, 700, 0" />
             <TextBlock Text="{Binding ModlistAuthor, FallbackValue=Placeholder,  UpdateSourceTrigger=PropertyChanged}" Margin="150, -45, 0, 30" />
             <Button Style="{StaticResource AccentButtonStyle}" Margin="58,28,0,0" VerticalAlignment="Top" Width="100">
