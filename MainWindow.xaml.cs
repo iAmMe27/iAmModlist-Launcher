@@ -4,11 +4,11 @@ using iAmModlist_Launcher.Launcher.Settings;
 using iAmModlist_Launcher.Launcher.Customisation;
 using iAmModlist_Launcher.Launcher.UI;
 using static iAmModlist_Launcher.Launcher.UI.ThemeHelper;
-using ModernWpf;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
+using Serilog;
 
 
 namespace iAmModlist_Launcher
@@ -157,14 +157,7 @@ namespace iAmModlist_Launcher
 
             VanityImage.Width = 900;
             VanityImage.Height = 450;
-
-            /*ThemeManager.Current.ApplicationTheme = Theme switch
-            {
-                AppTheme.Light => ApplicationTheme.Light,
-                AppTheme.Dark => ApplicationTheme.Dark,
-                _ => ApplicationTheme.Light
-            };*/
-
+            
             SetTheme(theme, accentColour);
 
             Background = theme switch
@@ -173,17 +166,6 @@ namespace iAmModlist_Launcher
                 AppTheme.Dark => new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00)),
                 _ => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
             };
-
-            /*ThemeManager.Current.AccentColor = AccentColour switch
-            {
-                "Purple" => Color.FromArgb(0xFF, 0x8A, 0x2B, 0xE2),
-                "Blue" => Color.FromArgb(0xFF, 0x00, 0x00, 0xFF),
-                "Green" => Color.FromArgb(0xFF, 0x00, 0xFF, 0x00),
-                "Red" => Color.FromArgb(0xFF, 0xFF, 0x00, 0x00),
-                "Yellow" => Color.FromArgb(0xFF, 0xFF, 0xFF, 0x00),
-                "Orange" => Color.FromArgb(0xFF, 0xFF, 0xA5, 0x00),
-                _ => Color.FromArgb(0xFF, 0x8A, 0x2B, 0xE2)
-            };*/
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -213,8 +195,11 @@ namespace iAmModlist_Launcher
 
         private void BtnAuthorSettings_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Opening author window");
             var authorWindow = new AuthorWindow(_launcherTheme, _accentColour);
             authorWindow.Show();
+            
+            Log.Information("Author window closed");
         }
     }
 }

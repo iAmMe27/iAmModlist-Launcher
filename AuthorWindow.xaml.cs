@@ -7,7 +7,7 @@ namespace iAmModlist_Launcher;
 /// <summary>
 /// Interaction logic for AuthorWindow.xaml
 /// </summary>
-public partial class AuthorWindow : Window
+public partial class AuthorWindow
 {
     private AppTheme Theme { get; }
     private AccentColour AccentColour { get; }
