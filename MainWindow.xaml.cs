@@ -105,7 +105,8 @@ namespace iAmModlist_Launcher
         {
             InitializeComponent();
 
-            _ = SettingsInitializer();
+            _ = SettingsInitialiser();
+            _ = CustomisationIntialiser();
             SizeChanged += MainWindow_SizeChanged;
         }
 
@@ -115,7 +116,7 @@ namespace iAmModlist_Launcher
             VanityImage.Height = e.NewSize.Height;
         }
 
-        private async Task SettingsInitializer()
+        private async Task SettingsInitialiser()
         {
             var settings = await Settings.LoadSettings();
             
@@ -123,11 +124,11 @@ namespace iAmModlist_Launcher
             ModlistVersion = "v" + settings?.ModListVersion;
             ModlistAuthor = "By " + settings?.ModListAuthor;
             ModlistPath = settings?.ModListPath;
+        }
 
-            var customisationSettings = await Customisation.LoadCustomisationSettings(); 
-            
-            //Theme = customisationSettings?.Theme;
-            //AccentColour = customisationSettings?.AccentColour;
+        private async Task CustomisationIntialiser()
+        {
+            var customisationSettings = await Customisation.LoadCustomisationSettings();
 
             if (Enum.TryParse(customisationSettings?.Theme, out AppTheme theme))
             {
@@ -157,7 +158,7 @@ namespace iAmModlist_Launcher
 
             VanityImage.Width = 900;
             VanityImage.Height = 450;
-            
+
             SetTheme(theme, accentColour);
 
             Background = theme switch
@@ -197,9 +198,13 @@ namespace iAmModlist_Launcher
         {
             Log.Information("Opening author window");
             var authorWindow = new AuthorWindow(_launcherTheme, _accentColour);
+            authorWindow.Closed += AuthorWindow_Closed;
             authorWindow.Show();
-            
-            Log.Information("Author window closed");
+        }
+
+        private void AuthorWindow_Closed(object? sender, EventArgs e)
+        {
+            _ = SettingsInitialiser();
         }
     }
 }
