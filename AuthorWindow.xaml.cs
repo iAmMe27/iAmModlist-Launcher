@@ -52,6 +52,16 @@ public partial class AuthorWindow : INotifyPropertyChanged
         }
     }
 
+    public bool? HideAuthorSettings
+    {
+        get => _hideAuthorSettings;
+        set
+        {
+            _hideAuthorSettings = value ?? false;
+            OnPropertyChange(nameof(HideAuthorSettings));
+        }
+    }
+
     public string? WindowTitle
     {
         get => _windowTitle;
@@ -66,6 +76,7 @@ public partial class AuthorWindow : INotifyPropertyChanged
     private string _modlistVersion = string.Empty;
     private string _modlistAuthor = string.Empty;
     private string _modlistPath = string.Empty;
+    private bool _hideAuthorSettings = false;
     private string _windowTitle = string.Empty;
 
     // Visual settings
@@ -92,6 +103,10 @@ public partial class AuthorWindow : INotifyPropertyChanged
         ModlistVersion = settings?.ModListVersion;
         ModlistAuthor = settings?.ModListAuthor;
         ModlistPath = settings?.ModListPath;
+
+        HideAuthorSettings = settings?.HideAuthorSettings;
+
+        chkHideAuthorSettings.IsChecked = HideAuthorSettings;
 
         WindowTitle = ModlistName + " - Settings";
 
@@ -122,6 +137,13 @@ public partial class AuthorWindow : INotifyPropertyChanged
         settings.ModListVersion = txtModlistVersion.Text;
         settings.ModListAuthor = txtModlistAuthor.Text;
         settings.ModListPath = txtModlistPath.Text;
+
+        settings.HideAuthorSettings = chkHideAuthorSettings.IsChecked switch
+        {
+            true => true,
+            false => false,
+            _ => false
+        };
 
         _ = Save();
     }

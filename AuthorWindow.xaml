@@ -43,6 +43,7 @@
             <TextBox x:Name="txtModlistVersion" Text="{Binding ModlistVersion, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
             <Label x:Name="label_4" Content="Modlist Path:" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="113" Margin="10,-18,0,0"/>
             <TextBox x:Name="txtModlistPath" Text="{Binding ModlistPath, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
+            <CheckBox x:Name="chkHideAuthorSettings" Content="Hide Author Settings?" Height="32" Margin="18,9,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
 
         </ui:SimpleStackPanel>
     </Grid>
