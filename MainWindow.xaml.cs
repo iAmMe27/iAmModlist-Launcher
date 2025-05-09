@@ -61,10 +61,21 @@ namespace iAmModlist_Launcher
             }
         }
 
+        public bool? HideAuthorSettings
+        {
+            get => _hideAuthorSettings;
+            set
+            {
+                _hideAuthorSettings = value ?? false;
+                OnPropertyChange(nameof(HideAuthorSettings));
+            }
+        }
+
         private string _modlistName = string.Empty;
         private string _modlistVersion = string.Empty;
         private string _modlistAuthor = string.Empty;
         private string _modlistPath = string.Empty;
+        private bool _hideAuthorSettings = false;
 
         // Visual settings
         public AppTheme? LauncherTheme
@@ -124,6 +135,13 @@ namespace iAmModlist_Launcher
             ModlistVersion = "v" + settings?.ModListVersion;
             ModlistAuthor = "By " + settings?.ModListAuthor;
             ModlistPath = settings?.ModListPath;
+            HideAuthorSettings = settings?.HideAuthorSettings;
+            
+            btnAuthorSettings.Visibility = HideAuthorSettings switch
+            {
+                true => Visibility.Hidden,
+                _ => Visibility.Visible
+            };
         }
 
         private async Task CustomisationIntialiser()

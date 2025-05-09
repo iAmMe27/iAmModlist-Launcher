@@ -6,13 +6,13 @@ using Serilog;
 
 namespace iAmModlist_Launcher.Launcher.Settings
 {
-    internal class Settings
+    internal static class Settings
     {
         private const string SettingsFileName = "settings.json";
 
         public static async Task<LauncherSettings?> LoadSettings()
         {
-            LauncherSettings? settings = new();
+            LauncherSettings? settings;
 
             try
             {
@@ -40,7 +40,8 @@ namespace iAmModlist_Launcher.Launcher.Settings
                 ModListName = "Modlist Name",
                 ModListVersion = "0.0.1.0",
                 ModListAuthor = "Chris P Bacon",
-                ModListPath = "Modlist\\Path"
+                ModListPath = "Modlist\\Path",
+                HideAuthorSettings = false
             };
 
             await SaveSettings(settings);
@@ -62,5 +63,8 @@ namespace iAmModlist_Launcher.Launcher.Settings
         // TODO: make this a file path type instead of a string
         [JsonPropertyName("ModlistPath")]
         public string ModListPath { get; set; } = string.Empty;
+        
+        [JsonPropertyName("HideAuthorSettings")]
+        public bool HideAuthorSettings { get; set; } = false;
     }
 }
