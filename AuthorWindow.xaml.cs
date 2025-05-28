@@ -65,7 +65,7 @@ public partial class AuthorWindow : INotifyPropertyChanged
     public string? WindowTitle
     {
         get => _windowTitle;
-        set
+        private set
         {
             _windowTitle = value ?? string.Empty;
             OnPropertyChange(nameof(ModlistName));
@@ -76,14 +76,14 @@ public partial class AuthorWindow : INotifyPropertyChanged
     private string _modlistVersion = string.Empty;
     private string _modlistAuthor = string.Empty;
     private string _modlistPath = string.Empty;
-    private bool _hideAuthorSettings = false;
+    private bool _hideAuthorSettings;
     private string _windowTitle = string.Empty;
 
     // Visual settings
     private AppTheme Theme { get; }
     private AccentColour AccentColour { get; }
 
-    LauncherSettings? settings = new();
+    private LauncherSettings? _settings = new();
         
     public AuthorWindow(AppTheme theme, AccentColour accentColour)
     {
@@ -97,14 +97,14 @@ public partial class AuthorWindow : INotifyPropertyChanged
 
     private async Task SettingsInitializer()
     {
-        settings = await Settings.LoadSettings();
+        _settings = await Settings.LoadSettings();
 
-        ModlistName = settings?.ModListName;
-        ModlistVersion = settings?.ModListVersion;
-        ModlistAuthor = settings?.ModListAuthor;
-        ModlistPath = settings?.ModListPath;
+        ModlistName = _settings?.ModListName;
+        ModlistVersion = _settings?.ModListVersion;
+        ModlistAuthor = _settings?.ModListAuthor;
+        ModlistPath = _settings?.ModListPath;
 
-        HideAuthorSettings = settings?.HideAuthorSettings;
+        HideAuthorSettings = _settings?.HideAuthorSettings;
 
         chkHideAuthorSettings.IsChecked = HideAuthorSettings;
 
@@ -133,29 +133,32 @@ public partial class AuthorWindow : INotifyPropertyChanged
 
     private void BtnSave_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        settings.ModListName = txtModlistName.Text;
-        settings.ModListVersion = txtModlistVersion.Text;
-        settings.ModListAuthor = txtModlistAuthor.Text;
-        settings.ModListPath = txtModlistPath.Text;
-
-        settings.HideAuthorSettings = chkHideAuthorSettings.IsChecked switch
+        if (_settings != null)
         {
-            true => true,
-            false => false,
-            _ => false
-        };
+            _settings.ModListName = txtModlistName.Text;
+            _settings.ModListVersion = txtModlistVersion.Text;
+            _settings.ModListAuthor = txtModlistAuthor.Text;
+            _settings.ModListPath = txtModlistPath.Text;
+
+            _settings.HideAuthorSettings = chkHideAuthorSettings.IsChecked switch
+            {
+                true => true,
+                false => false,
+                _ => false
+            };
+        }
 
         _ = Save();
     }
 
     private async Task Save()
     {
-        if (settings is not null)
+        if (_settings is not null)
         {
             Log.Information("Saving settings");
             try
             {
-                await Settings.SaveSettings(settings);
+                await Settings.SaveSettings(_settings);
             }
             catch (Exception ex)
             {

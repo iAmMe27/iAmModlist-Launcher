@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace iAmModlist_Launcher.Launcher.UI
 {
-    static class ContrastColourConverter
+    internal static class ContrastColourConverter
     {
         public static Color GetAverageColour(UIElement element, Rect region)
         {
