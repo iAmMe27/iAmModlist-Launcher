@@ -165,26 +165,25 @@ namespace iAmModlist_Launcher
             {
                 accentColour = ThemeHelper.AccentColour.Purple;
             }
-
-            BackgroundImage = customisationSettings?.BackgroundImage;
-
-            if (BackgroundImage != null)
-            {
-                var pathForVanityImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, BackgroundImage);
-                VanityImage.Source = new BitmapImage(new Uri(pathForVanityImage, UriKind.Absolute));
-            }
-
-            VanityImage.Width = 900;
-            VanityImage.Height = 450;
-
+            
             SetTheme(theme, accentColour);
-
+            
             Background = theme switch
             {
                 AppTheme.Light => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)),
                 AppTheme.Dark => new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00)),
                 _ => new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
             };
+            
+            BackgroundImage = customisationSettings?.BackgroundImage;
+
+            if (BackgroundImage != null)
+            {
+                var pathForVanityImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, BackgroundImage);
+                VanityImage.Source = new BitmapImage(new Uri(pathForVanityImage, UriKind.Absolute));
+                VanityImage.Width = 900;
+                VanityImage.Height = 450;
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
