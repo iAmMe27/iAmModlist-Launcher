@@ -10,7 +10,6 @@ using System.IO;
 using System.Windows.Controls;
 using Serilog;
 
-
 namespace iAmModlist_Launcher
 {
     /// <summary>
@@ -75,7 +74,7 @@ namespace iAmModlist_Launcher
         private string _modlistVersion = string.Empty;
         private string _modlistAuthor = string.Empty;
         private string _modlistPath = string.Empty;
-        private bool _hideAuthorSettings = false;
+        private bool _hideAuthorSettings;
 
         // Visual settings
         public AppTheme? LauncherTheme
@@ -198,17 +197,27 @@ namespace iAmModlist_Launcher
 
         private Brush UpdateTextColour(object sender)
         {
-            if (sender is TextBlock tb && VanityImage != null)
+            try
             {
-                // Determine where the text appears relative to the Image
-                var location = tb.TransformToVisual(VanityImage).Transform(new Point(0, 0));
-                var rect = new Rect(location, new Size(tb.ActualWidth, tb.ActualHeight));
+                if (sender is TextBlock tb && VanityImage != null)
+                {
+                    // Determine where the text appears relative to the Image
+                    var location = tb.TransformToVisual(VanityImage).Transform(new Point(0, 0));
+                    var rect = new Rect(location, new Size(tb.ActualWidth, tb.ActualHeight));
 
-                var color = ContrastColourConverter.GetAverageColour(VanityImage, rect);
-                return ContrastColourConverter.GetContrastingTextBrush(color);
+                    var color = ContrastColourConverter.GetAverageColour(VanityImage, rect);
+                    return ContrastColourConverter.GetContrastingTextBrush(color);
+                }
+
+                return Brushes.Black;
             }
-
-            return Brushes.Black;
+            catch (Exception e)
+            {
+                Log.Fatal("Error updating text colour: \n" + e.Message);
+                
+                return Brushes.Black;
+            }
+            
         }
 
         private void BtnAuthorSettings_Click(object sender, RoutedEventArgs e)

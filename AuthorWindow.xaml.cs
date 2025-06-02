@@ -108,7 +108,7 @@ public partial class AuthorWindow : INotifyPropertyChanged
 
         ChkHideAuthorSettings.IsChecked = HideAuthorSettings;
 
-        WindowTitle = ModlistName + " - Settings";
+        WindowTitle = ModlistName + " - Author Settings";
 
         SetTheme(Theme, AccentColour);
 

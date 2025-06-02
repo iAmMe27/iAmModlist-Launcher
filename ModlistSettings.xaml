@@ -1,4 +1,4 @@
-﻿<Window x:Class="iAmModlist_Launcher.AuthorWindow"
+﻿<Window x:Class="iAmModlist_Launcher.ModlistSettings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,7 +12,7 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Background="#FF958D8D">
     <Grid>
         <ui:SimpleStackPanel Margin="12" Spacing="24">
-            <TextBlock Text="Author Settings" Style="{StaticResource HeaderTextBlockStyle}" Name="TitleBlock"/>
+            <TextBlock Text="Modlist Settings" Style="{StaticResource HeaderTextBlockStyle}" Name="TitleBlock"/>
             <Button Margin="658,-69,0,0" VerticalAlignment="Top" Width="100" Name="BtnSave" Click="BtnSave_Click" Style="{StaticResource AccentButtonStyle}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Save" VerticalAlignment="Center"/>
