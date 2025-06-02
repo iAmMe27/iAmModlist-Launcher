@@ -12,11 +12,11 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Background="#FF958D8D">
     <Grid>
         <Image Name="VanityImage" Source="{Binding BackgroundImage}" />
-        <ui:SimpleStackPanel Margin="12" Spacing="24">
+        <ui:SimpleStackPanel Grid.Row="0" Margin="12" Spacing="24">
             <TextBlock Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HeaderTextBlockStyle}" Loaded="ModlistNameText_Loaded" Name="ModListNameText"/>
             <TextBlock Text="{Binding ModlistVersion, FallbackValue=Placeholder,  UpdateSourceTrigger=PropertyChanged}" Margin="0, -20, 700, 0" />
             <TextBlock Text="{Binding ModlistAuthor, FallbackValue=Placeholder,  UpdateSourceTrigger=PropertyChanged}" Margin="150, -45, 0, 30" />
-            <Button Style="{StaticResource AccentButtonStyle}" Margin="58,28,0,0" VerticalAlignment="Top" Width="100">
+            <Button Style="{StaticResource AccentButtonStyle}" x:Name="BtnPlay" Margin="58,28,0,0" VerticalAlignment="Top" Width="100">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Play" VerticalAlignment="Center"/>
                     <iconPacks:PackIconFontAwesome
@@ -27,7 +27,7 @@
                         Margin="8,0,0,0"/>
                 </StackPanel>
             </Button>
-            <Button Margin="58,-19,0,0" VerticalAlignment="Top" Width="100">
+            <Button x:Name="BtnSettings" Margin="58,-19,0,0" VerticalAlignment="Top" Width="100">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Settings" VerticalAlignment="Center"/>
                     <iconPacks:PackIconFontAwesome
@@ -38,7 +38,7 @@
                         Margin="8,0,0,0"/>
                 </StackPanel>
             </Button>
-            <Button Margin="58,-19,0,0" VerticalAlignment="Top" Width="100">
+            <Button x:Name="BtnCredits" Margin="58,-19,0,0" VerticalAlignment="Top" Width="100">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Credits" VerticalAlignment="Center"/>
                     <iconPacks:PackIconFontAwesome
@@ -49,7 +49,7 @@
                         Margin="8,0,0,0"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnAuthorSettings" VerticalAlignment="Bottom" Margin="0,0,30,-77" HorizontalAlignment="Right" Width="153" Click="BtnAuthorSettings_Click">
+            <Button x:Name="BtnAuthorSettings" VerticalAlignment="Bottom" Margin="0,0,30,-77" HorizontalAlignment="Right" Width="153" Click="BtnAuthorSettings_Click">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Author Settings" VerticalAlignment="Center"/>
                     <iconPacks:PackIconFontAwesome

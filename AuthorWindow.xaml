@@ -36,14 +36,14 @@
                 </StackPanel>
             </Button>
             <Label x:Name="label" Content="Modlist Name:" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="113" Margin="10,-16,0,0"/>
-            <TextBox x:Name="txtModlistName" Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-49,10,17"/>
+            <TextBox x:Name="TxtModlistName" Text="{Binding ModlistName, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-49,10,17"/>
             <Label x:Name="label_2" Content="Modlist Author:" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="113" Margin="10,-18,0,0"/>
-            <TextBox x:Name="txtModlistAuthor" Text="{Binding ModlistAuthor, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
+            <TextBox x:Name="TxtModlistAuthor" Text="{Binding ModlistAuthor, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
             <Label x:Name="label_3" Content="Modlist Version:" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="113" Margin="10,-18,0,0"/>
-            <TextBox x:Name="txtModlistVersion" Text="{Binding ModlistVersion, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
+            <TextBox x:Name="TxtModlistVersion" Text="{Binding ModlistVersion, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
             <Label x:Name="label_4" Content="Modlist Path:" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="113" Margin="10,-18,0,0"/>
-            <TextBox x:Name="txtModlistPath" Text="{Binding ModlistPath, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
-            <CheckBox x:Name="chkHideAuthorSettings" Content="Hide Author Settings?" Height="32" Margin="18,9,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="TxtModlistPath" Text="{Binding ModlistPath, FallbackValue=Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="128,-51,10,19"/>
+            <CheckBox x:Name="ChkHideAuthorSettings" Content="Hide Author Settings?" Height="32" Margin="18,9,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
 
         </ui:SimpleStackPanel>
     </Grid>

@@ -116,8 +116,8 @@ namespace iAmModlist_Launcher
         {
             InitializeComponent();
 
-            _ = SettingsInitialiser();
-            _ = CustomisationIntialiser();
+            _ = SettingsInitializer();
+            _ = CustomisationInitializer();
             SizeChanged += MainWindow_SizeChanged;
         }
 
@@ -127,7 +127,7 @@ namespace iAmModlist_Launcher
             VanityImage.Height = e.NewSize.Height;
         }
 
-        private async Task SettingsInitialiser()
+        private async Task SettingsInitializer()
         {
             var settings = await Settings.LoadSettings();
             
@@ -137,14 +137,14 @@ namespace iAmModlist_Launcher
             ModlistPath = settings?.ModListPath;
             HideAuthorSettings = settings?.HideAuthorSettings;
             
-            btnAuthorSettings.Visibility = HideAuthorSettings switch
+            BtnAuthorSettings.Visibility = HideAuthorSettings switch
             {
                 true => Visibility.Hidden,
                 _ => Visibility.Visible
             };
         }
 
-        private async Task CustomisationIntialiser()
+        private async Task CustomisationInitializer()
         {
             var customisationSettings = await Customisation.LoadCustomisationSettings();
 
@@ -221,7 +221,7 @@ namespace iAmModlist_Launcher
 
         private void AuthorWindow_Closed(object? sender, EventArgs e)
         {
-            _ = SettingsInitialiser();
+            _ = SettingsInitializer();
         }
     }
 }
