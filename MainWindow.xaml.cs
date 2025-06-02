@@ -232,6 +232,19 @@ namespace iAmModlist_Launcher
         {
             _ = SettingsInitializer();
         }
+
+        private void BtnSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            Log.Information("Opening settings window");
+            var settingsWindow = new ModlistSettings(_launcherTheme, _accentColour);
+            settingsWindow.Closed += ModlistSettings_Closed;
+            settingsWindow.Show();
+        }
+        
+        private static void ModlistSettings_Closed(object? sender, EventArgs e)
+        {
+            
+        }
     }
 }
 
