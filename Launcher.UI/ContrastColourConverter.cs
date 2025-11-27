@@ -8,7 +8,7 @@ namespace iAmModlist_Launcher.Launcher.UI
 {
     internal static class ContrastColourConverter
     {
-        public static Color GetAverageColour(UIElement element, Rect region)
+        public static Color GetAverageColour(UIElement element, Rect region, int sampleRate = 1)
         {
             // Do some actual input validation
             if (region.Width <= 0 || region.Height <= 0)
@@ -41,7 +41,7 @@ namespace iAmModlist_Launcher.Launcher.UI
             if (pixelCount == 0)
                 return Colors.Black;
 
-            for (var i = 0; i < pixels.Length; i += 4)
+            for (var i = 0; i < pixels.Length; i += 4 * sampleRate)
             {
                 b += pixels[i];
                 g += pixels[i + 1];
