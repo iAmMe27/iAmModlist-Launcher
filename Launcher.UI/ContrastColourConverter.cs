@@ -14,7 +14,7 @@ namespace iAmModlist_Launcher.Launcher.UI
             if (region.Width <= 0 || region.Height <= 0)
             {
                 Log.Error("Contrast colour converter: region width or height was less than 0");
-                return Colors.White; 
+                return Colors.Black; 
             }
             
             var width = (int)region.Width;
@@ -36,6 +36,10 @@ namespace iAmModlist_Launcher.Launcher.UI
 
             long r = 0, g = 0, b = 0;
             var pixelCount = width * height;
+            
+            // avoid a divide by zero error here
+            if (pixelCount == 0)
+                return Colors.Black;
 
             for (var i = 0; i < pixels.Length; i += 4)
             {
