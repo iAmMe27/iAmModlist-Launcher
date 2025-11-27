@@ -35,7 +35,7 @@ namespace iAmModlist_Launcher.Launcher.UI
             rtb.CopyPixels(pixels, (int)region.Width * 4, 0);
 
             long r = 0, g = 0, b = 0;
-            var pixelCount = (long)width * height;
+            var pixelCount = (long)(width * height);
             
             // avoid a divide by zero error here
             if (pixelCount == 0)
