@@ -13,7 +13,7 @@ namespace iAmModlist_Launcher.Launcher.UI
             // Do some actual input validation
             if (region.Width <= 0 || region.Height <= 0)
             {
-                Log.Error("Contrast colour converter: region width or height was less than 0");
+                Log.Error("Contrast colour converter: region width or height was equal to or less than 0");
                 return Colors.Black; 
             }
             
