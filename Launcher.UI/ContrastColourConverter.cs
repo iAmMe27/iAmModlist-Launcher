@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Serilog;
+using Serilog.Core;
 
 namespace iAmModlist_Launcher.Launcher.UI
 {
@@ -8,7 +10,17 @@ namespace iAmModlist_Launcher.Launcher.UI
     {
         public static Color GetAverageColour(UIElement element, Rect region)
         {
-            var rtb = new RenderTargetBitmap((int)region.Width, (int)region.Height, 96, 96, PixelFormats.Pbgra32);
+            // Do some actual input validation
+            if (region.Width <= 0 || region.Height <= 0)
+            {
+                Log.Error("Contrast colour converter: region width or height was less than 0");
+                return Colors.White; 
+            }
+            
+            var width = (int)region.Width;
+            var height = (int)region.Height;
+            
+            var rtb = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
             var dv = new DrawingVisual();
 
             using (var dc = dv.RenderOpen())
@@ -19,11 +31,11 @@ namespace iAmModlist_Launcher.Launcher.UI
 
             rtb.Render(dv);
 
-            var pixels = new byte[(int)(region.Width * region.Height * 4)];
+            var pixels = new byte[(width * height * 4)];
             rtb.CopyPixels(pixels, (int)region.Width * 4, 0);
 
             long r = 0, g = 0, b = 0;
-            var pixelCount = (int)(region.Width * region.Height);
+            var pixelCount = width * height;
 
             for (var i = 0; i < pixels.Length; i += 4)
             {
