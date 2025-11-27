@@ -1,27 +1,32 @@
 using System.IO;
+using System.Reflection;
 using Serilog;
 
 namespace iAmModlist_Launcher.Launcher.Logging;
 
 public static class LauncherLogger
 {
-    public static void CreateLogger()
+   public static void CreateLogger()
     {
-        if (!Directory.Exists("logs"))
+        var baseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+        var logPath = Path.Combine(baseDir!, "logs");
+
+        if (!Directory.Exists(logPath))
         {
-            Directory.CreateDirectory("logs");
+            Directory.CreateDirectory(logPath);
         }
 
         LogRotator.RotateLogs();
         
         var logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .WriteTo.File("logs\\launcher.current.log",
+            .WriteTo.File(Path.Combine(logPath, "launcher.current.log"),
                 outputTemplate: $"[{{Level}}] [{{Timestamp}}]: {{Message}}{{NewLine}}")
             .CreateLogger();
 
         Log.Logger = logger;
         Log.Information("### iAmModlist Launcher ###");
+        Log.Information("Launcher location: " + baseDir);
     }
 }
 
